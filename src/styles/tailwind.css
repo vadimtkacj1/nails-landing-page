@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* ===== PRIMARY COLOR PALETTE ===== */
+    /* Brand Colors - Warm beige and cream tones */
+    --primary-background: #d8b192;
+    --primary-foreground: #ffffff;
+    --primary-dark: #c09878;
+    --primary-light: #e8c9aa;
+
+    /* Secondary Colors - Neutral grays */
+    --secondary-background: #757575;
+    --secondary-foreground: #ffffff;
+    --secondary-light: #b3b3b3;
+    --secondary-dark: #3b3b3b;
+
+    /* ===== TEXT COLORS ===== */
+    /* Primary text colors for content hierarchy */
+    --text-primary: #000000;
+    --text-secondary: #757575;
+    --text-accent: #d8b192;
+    --text-light: #f3f3f3;
+    --text-inverse: #ffffff;
+
+    /* ===== BACKGROUND COLORS ===== */
+    /* Main background colors for different sections */
+    --bg-main: #fcf8ef;
+    --bg-card: #ffffff;
+    --bg-overlay: #d9d9d9;
+    --bg-neutral-light: #b3b3b3;
+    --bg-neutral-dark: #3b3b3b;
+    --bg-accent: #f77c7c;
+
+    /* ===== BORDER COLORS ===== */
+    /* Border and divider colors */
+    --border-primary: #ffffff;
+    --border-secondary: #757575;
+    --border-light: #d9d9d9;
+
+    /* ===== TYPOGRAPHY VARIABLES ===== */
+    /* Font Sizes - Mobile-first responsive sizes */
+    --font-size-xs: 14px;
+    --font-size-sm: 16px;
+    --font-size-base: 20px;
+    --font-size-lg: 24px;
+    --font-size-xl: 32px;
+    --font-size-2xl: 40px;
+
+    /* Font Weights */
+    --font-weight-normal: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Line Heights */
+    --line-height-tight: 18px;
+    --line-height-snug: 20px;
+    --line-height-normal: 25px;
+    --line-height-relaxed: 29px;
+    --line-height-loose: 30px;
+    --line-height-xl: 40px;
+    --line-height-2xl: 49px;
+
+    /* Font Families */
+    --font-primary: 'Heebo', sans-serif;
+    --font-secondary: 'Heebo', sans-serif;
+
+    /* ===== SPACING VARIABLES ===== */
+    /* Margin Values - Consistent spacing scale */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 40px;
+    --spacing-3xl: 52px;
+    --spacing-4xl: 64px;
+    --spacing-5xl: 82px;
+
+    /* Padding Values */
+    --padding-xs: 12px;
+    --padding-sm: 16px;
+    --padding-md: 34px;
+    --padding-lg: 56px;
+    --padding-xl: 84px;
+    --padding-2xl: 136px;
+
+    /* Gap Values - For flexbox and grid layouts */
+    --gap-xs: 4px;
+    --gap-sm: 8px;
+    --gap-md: 16px;
+    --gap-lg: 24px;
+    --gap-xl: 42px;
+    --gap-2xl: 52px;
+
+    /* ===== BORDER VARIABLES ===== */
+    /* Border Radius */
+    --radius-sm: 24px;
+    --radius-md: 184px;
+    --radius-lg: 186px;
+    --radius-xl: 218px;
+
+    /* Border Width */
+    --border-width-thin: 1px;
+
+    /* ===== LAYOUT VARIABLES ===== */
+    /* Width Percentages */
+    --width-xs: 6%;
+    --width-sm: 12%;
+    --width-md: 30%;
+    --width-lg: 60%;
+    --width-xl: 70%;
+    --width-2xl: 84%;
+    --width-full: 100%;
+
+    /* ===== COMPONENT-SPECIFIC VARIABLES ===== */
+    /* Header Component */
+    --header-bg: var(--bg-main);
+    --header-text: var(--text-primary);
+
+    /* Footer Component */
+    --footer-bg: #d8b192;
+    --footer-text: #f3f3f3;
+    --footer-padding: var(--padding-2xl);
+
+    /* Button Component */
+    --button-bg: #d8b192;
+    --button-text: #ffffff;
+    --button-border: #ffffff;
+    --button-radius: var(--radius-sm);
+    --button-padding-y: 14px;
+    --button-padding-x: 34px;
+
+    /* Link Component */
+    --link-text: #757575;
+    --link-text-light: #f3f3f3;
+    --link-hover: var(--primary-background);
+
+    /* IconButton Component */
+    --icon-button-bg: #ffffff;
+    --icon-button-padding: var(--padding-sm);
+    --icon-button-radius: var(--radius-sm);
+
+    /* EditText Component */
+    --input-text: #d8b192;
+    --input-border: var(--border-secondary);
+    --input-padding: var(--padding-xs);
+
+    /* Line Component */
+    --line-bg: #757575;
+    --line-bg-light: #ffffff;
+
+    /* Card Components */
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+
+    /* Logo Component */
+    --logo-width: 264px;
+  }
+}
+
+/* ===== CUSTOM UTILITY CLASSES ===== */
+@layer components {
+  /* Container utilities */
+  .container-custom {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 1440px;
+  }
+
+  /* Section spacing */
+  .section-padding {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  /* Card shadows */
+  .card-shadow {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-shadow-hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+}
