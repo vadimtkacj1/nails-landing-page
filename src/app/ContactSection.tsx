@@ -6,8 +6,8 @@ import { Reveal } from '@/components/ui/Reveal';
 export default function ContactSection() {
   const [email, setEmail] = useState<string>('')
 
-  const handleSubscribe = (e: React.FormEvent): void => {
-    e.preventDefault()
+  const handleSubscribe = (): void => {
+    if (!email.trim()) return
     console.log('Subscribe email:', email)
     setEmail('')
   }
@@ -50,23 +50,25 @@ export default function ContactSection() {
               </a>
             </div>
 
-            <form onSubmit={handleSubscribe} className="w-full max-w-[500px]">
+            <div className="w-full max-w-[500px]">
               <div className="flex items-center border-b border-[#757575] pb-3">
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
                   placeholder="הזן כתובת אימייל"
                   className="flex-1 bg-transparent text-[14px] lg:text-[16px] font-normal text-[#3b3b3b] font-[Heebo] placeholder:text-[#9e9e9e] outline-none"
                 />
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={handleSubscribe}
                   className="ml-6 flex-shrink-0 text-[12px] lg:text-[13px] font-semibold uppercase tracking-widest text-[#d8b192] font-[Heebo] hover:opacity-70 transition-opacity duration-200"
                 >
                   הרשמה
                 </button>
               </div>
-            </form>
+            </div>
           </Reveal>
         </div>
       </div>

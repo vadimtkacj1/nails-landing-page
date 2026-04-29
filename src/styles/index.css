@@ -17,7 +17,10 @@ body {
   box-sizing: border-box;
   color: var(--text-primary);
   background-color: var(--bg-main);
-  overflow-x: hidden;
+  overflow-x: clip; /* clip ≠ hidden: does NOT create a scroll container,
+                       so overflow-y stays visible and body never becomes
+                       a separate vertical scroll context → no iOS double-scroll */
+  overscroll-behavior-x: none; /* block horizontal rubber-band on iOS */
   direction: ltr;
 }
 
@@ -27,7 +30,9 @@ body {
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* overflow-x: clip (not hidden) — hidden on html creates a scroll container
+     that breaks vertical touch-scroll on iOS Safari */
+  overflow-x: clip;
 }
 
 button {
@@ -256,6 +261,56 @@ footer {
 
 .news-card-reveal.reveal-visible article {
   animation: newsCardIn 1.0s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+/* =============================================
+   MOBILE — scroll performance
+   The goal: zero GPU compositing layers during scroll.
+   Every will-change / opacity:0 / transform on a section
+   creates a compositing layer iOS has to scroll separately.
+   ============================================= */
+@media (max-width: 1023px) {
+  /* Sections: fully visible immediately, no animation cost */
+  main > section, footer {
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto !important;
+    transition: none !important;
+  }
+
+  /* Element reveals: slide-in from sides + small fade-up.
+     translateX is safe (doesn't add to page height → no double-scroll).
+     will-change:auto = browser creates compositing layer only during
+     the 0.6s transition, then destroys it. No permanent GPU layers. */
+  .reveal {
+    will-change: auto;
+    transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1),
+                transform 0.55s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal-up    { filter: none; transform: translateY(24px); }
+  .reveal-left  { filter: none; transform: translateX(-52px); }
+  .reveal-right { filter: none; transform: translateX(52px); }
+  .reveal-scale { filter: none; transform: scale(0.93); }
+  .reveal-fade  { filter: none; transform: translateY(12px); }
+
+  /* Parallax: off — no will-change compositing layers */
+  [data-parallax] {
+    transform: none !important;
+    will-change: auto !important;
+  }
+
+  /* Floating animations: off — continuous transforms during scroll = jank */
+  .deco-float, .deco-float-b, .deco-float-c { animation: none; }
+
+  /* Curtain: off — overlay animation fires mid-scroll, adds paint cost */
+  .curtain img { opacity: 1 !important; transition: none !important; }
+  .curtain-overlay { display: none !important; }
+
+  /* News card animation: skip filter:blur, just fade */
+  .news-card-reveal article { opacity: 1; }
+  .news-card-reveal.reveal-visible article { animation: none; opacity: 1; }
+
+  /* Split-word animation: keep (lightweight translateY only) */
 }
 
 /* =============================================

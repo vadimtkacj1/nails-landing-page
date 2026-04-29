@@ -99,10 +99,14 @@ export default function ScrollRevealProvider() {
     );
     document.querySelectorAll('.curtain').forEach((el) => curtainIo.observe(el));
 
-    /* ── Parallax ──
-       Elements with data-parallax="0.12" shift at 12% of their
-       distance from the viewport centre — GPU-only, rAF-throttled.
+    /* ── Parallax ── desktop only
+       No benefit on touch devices and wastes battery/causes jank.
+       CSS also zeros out the transform on mobile as a safety net.
     ── */
+    if (window.matchMedia('(max-width: 1023px)').matches) {
+      return () => { sectionIo.disconnect(); elemIo.disconnect(); curtainIo.disconnect(); };
+    }
+
     const parallaxEls = Array.from(
       document.querySelectorAll<HTMLElement>('[data-parallax]')
     );
