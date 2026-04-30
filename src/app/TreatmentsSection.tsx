@@ -3,10 +3,10 @@ import Image from 'next/image';
 import Button from '@/components/ui/Button';
 
 const treatments = [
-  { name: 'מניקור', description: 'טיפוח עדין לציפורניים מטופחות וידיים רכות', price: '$18.00' },
-  { name: 'קרם לידיים/ציפורניים', description: 'הזנה מהירה וספיגה נעימה לעור בריא', price: '$50.00' },
-  { name: 'קוצץ ציפורניים', description: 'קיצוץ מדויק לשמירה על אורך מושלם', price: '$20.00' },
-  { name: 'מניקור ופדיקור', description: 'פינוק מלא מהשורש ועד הקצה', price: '$30.00' },
+  { name: 'מניקור', description: 'טיפוח עדין לציפורניים מטופחות וידיים רכות', price: '₪36.00' },
+  { name: 'קרם לידיים/ציפורניים', description: 'הזנה מהירה וספיגה נעימה לעור בריא', price: '₪100.00' },
+  { name: 'קוצץ ציפורניים', description: 'קיצוץ מדויק לשמירה על אורך מושלם', price: '₪40.00' },
+  { name: 'מניקור ופדיקור', description: 'פינוק מלא מהשורש ועד הקצה', price: '₪60.00' },
 ];
 
 export default function TreatmentsSection() {
@@ -26,12 +26,12 @@ export default function TreatmentsSection() {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-12 lg:px-20 relative z-10">
+      <div dir="rtl" className="max-w-[1440px] mx-auto px-6 sm:px-12 lg:px-20 relative z-10">
         <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20">
           
           {/* Левая часть: Список услуг */}
-          <div className="w-full lg:w-1/2 flex flex-col pt-4">
-            <h2 className="split-words text-[28px] sm:text-[36px] lg:text-[42px] font-medium uppercase tracking-wide text-[#c9a385] font-[Heebo] mb-10">
+          <div className="w-full lg:w-1/2 flex flex-col pt-4 text-right">
+            <h2 className="split-words text-[28px] sm:text-[36px] lg:text-[42px] font-medium tracking-wide text-[#c9a385] font-[Heebo] mb-10">
               טיפולים ומחירים
             </h2>
 
@@ -42,7 +42,7 @@ export default function TreatmentsSection() {
                     <span className="text-[16px] lg:text-[18px] font-semibold text-[#555] font-[Heebo]">
                       {t.name}
                     </span>
-                    <span className="text-[16px] lg:text-[18px] font-medium text-[#555] font-[Heebo] ml-4">
+                    <span className="text-[16px] lg:text-[18px] font-medium text-[#555] font-[Heebo] tabular-nums">
                       {t.price}
                     </span>
                   </div>

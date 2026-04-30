@@ -16,7 +16,7 @@ export default function ProductsSection() {
 
           <Reveal dir="up">
             <h2 className="text-[26px] sm:text-[32px] lg:text-[40px] font-semibold text-center uppercase text-white font-[Heebo]">
-              ערבבו והתאימו לקים
+              ערבבו והתאימו את הגוון שלכם
             </h2>
           </Reveal>
 

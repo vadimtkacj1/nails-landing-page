@@ -91,7 +91,7 @@ export default function StorySection() {
           </div>
 
           {/* Right — copy */}
-          <div className="flex w-full flex-col gap-5 lg:w-[48%] lg:max-w-xl lg:gap-6">
+          <div dir="rtl" className="flex w-full flex-col gap-5 text-right lg:w-[48%] lg:max-w-xl lg:gap-6">
             <h2 className="font-['Playfair_Display',Georgia,serif] text-[clamp(1.75rem,4vw,2.5rem)] font-normal uppercase tracking-[0.12em] text-[#C9A68A]">
               הסיפור שלנו
             </h2>

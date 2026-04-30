@@ -27,19 +27,19 @@ export default function NewsSection() {
   ]
 
   return (
-    <section className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-24">
+    <section dir="rtl" className="w-full relative overflow-hidden py-16 sm:py-20 lg:py-24">
 
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-10">
         <Reveal dir="up">
           <h2 className="split-words text-[26px] sm:text-[32px] lg:text-[40px] font-semibold leading-tight text-center uppercase text-[#d8b192] font-[Heebo] mb-12 lg:mb-16">
-            חדשות וטרנדים מעודנים
+            מעודנים וטרנדים
           </h2>
         </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-20">
           {blogPosts.map((post, i) => (
             <Reveal key={post.id} dir="fade" delay={i * 150} className="news-card-reveal">
-              <article className="flex flex-col gap-5">
+              <article className="flex flex-col gap-5 text-right">
                 <div className="parallax-card w-full">
                   <div data-parallax="0.09">
                     <Image
@@ -57,7 +57,7 @@ export default function NewsSection() {
                 <p className="text-[14px] lg:text-[16px] font-normal leading-relaxed text-[#757575] font-[Heebo]">
                   {post.excerpt}
                 </p>
-                <Link href={`/blog/${post.id}`} className="flex items-center gap-2.5 group w-fit">
+                <Link href={`/blog/${post.id}`} className="flex flex-row-reverse items-center gap-2.5 group w-fit">
                   <Image
                     src="/images/img_arrow_blue_gray_900.svg"
                     alt=""
