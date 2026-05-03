@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Reveal } from '@/components/ui/Reveal';
+import SplitWords from '@/components/ui/SplitWords';
 
 interface BlogPost {
   id: number
@@ -31,9 +32,9 @@ export default function NewsSection() {
 
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-10">
         <Reveal dir="up">
-          <h2 className="split-words text-[26px] sm:text-[32px] lg:text-[40px] font-semibold leading-tight text-center uppercase text-[#d8b192] font-[Heebo] mb-12 lg:mb-16">
+          <SplitWords className="text-[26px] sm:text-[32px] lg:text-[40px] font-semibold leading-tight text-center uppercase text-[#d8b192] font-[Heebo] mb-12 lg:mb-16">
             מעודנים וטרנדים
-          </h2>
+          </SplitWords>
         </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-20">

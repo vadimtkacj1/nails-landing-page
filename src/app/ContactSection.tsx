@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
+import SplitWords from '@/components/ui/SplitWords';
 
 export default function ContactSection() {
   const [email, setEmail] = useState<string>('')
@@ -34,9 +35,9 @@ export default function ContactSection() {
 
           {/* Right — Contact info */}
           <Reveal dir="left" delay={120} className="w-full lg:w-[52%] flex flex-col items-center lg:items-start gap-6 lg:gap-8">
-            <h2 className="split-words text-[28px] sm:text-[34px] lg:text-[40px] font-semibold leading-tight uppercase text-[#d8b192] font-[Heebo] text-center lg:text-right">
+            <SplitWords className="text-[28px] sm:text-[34px] lg:text-[40px] font-semibold leading-tight uppercase text-[#d8b192] font-[Heebo] text-center lg:text-right">
               צור קשר עם הסלון שלנו
-            </h2>
+            </SplitWords>
 
             <div className="flex flex-col items-center lg:items-start gap-2">
               <p className="text-[14px] lg:text-[16px] font-normal text-[#757575] font-[Heebo] text-center lg:text-right">

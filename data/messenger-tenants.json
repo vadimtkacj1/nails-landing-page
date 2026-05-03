@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "tenants": {
+    "default": {
+      "label": "",
+      "subscribeCode": "0A3A9BED",
+      "telegram": [
+        {
+          "chatId": "476132509",
+          "subscribedAt": "2026-05-01T15:16:47.885173+00:00",
+          "username": "vadimtkach19"
+        }
+      ],
+      "whatsapp": []
+    }
+  }
+}

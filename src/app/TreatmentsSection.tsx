@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
+import SplitWords from '@/components/ui/SplitWords';
 
 const treatments = [
   { name: 'מניקור', description: 'טיפוח עדין לציפורניים מטופחות וידיים רכות', price: '₪36.00' },
@@ -31,9 +32,9 @@ export default function TreatmentsSection() {
           
           {/* Левая часть: Список услуг */}
           <div className="w-full lg:w-1/2 flex flex-col pt-4 text-right">
-            <h2 className="split-words text-[28px] sm:text-[36px] lg:text-[42px] font-medium tracking-wide text-[#c9a385] font-[Heebo] mb-10">
+            <SplitWords className="text-[28px] sm:text-[36px] lg:text-[42px] font-medium tracking-wide text-[#c9a385] font-[Heebo] mb-10">
               טיפולים ומחירים
-            </h2>
+            </SplitWords>
 
             <div className="flex flex-col gap-8 mb-12">
               {treatments.map((t, i) => (

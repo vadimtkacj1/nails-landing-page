@@ -96,11 +96,11 @@
     --gap-2xl: 52px;
 
     /* ===== BORDER VARIABLES ===== */
-    /* Border Radius */
-    --radius-sm: 24px;
-    --radius-md: 184px;
-    --radius-lg: 186px;
-    --radius-xl: 218px;
+    /* Border Radius (Tailwind rounded-sm/md/lg/xl map here; keep px-scale sane) */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
 
     /* Border Width */
     --border-width-thin: 1px;

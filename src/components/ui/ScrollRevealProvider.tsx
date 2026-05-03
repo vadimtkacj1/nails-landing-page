@@ -43,35 +43,6 @@ export default function ScrollRevealProvider() {
       });
     });
 
-    /* ── Split-word heading reveal ──
-       Splits `.split-words` heading text into word spans that rise up
-       one by one using overflow:hidden clip trick.
-    ── */
-    document.querySelectorAll<HTMLElement>('.split-words').forEach((el) => {
-      const rawText = el.textContent || '';
-      const parts = rawText.split(/(\s+)/);
-      el.innerHTML = parts
-        .map((part) => {
-          if (/^\s+$/.test(part)) return part;
-          return `<span class="word-wrap"><span class="word-inner">${part}</span></span>`;
-        })
-        .join('');
-
-      const wordIo = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            el.querySelectorAll<HTMLElement>('.word-inner').forEach((span, i) => {
-              span.style.transitionDelay = `${i * 65}ms`;
-              span.classList.add('word-visible');
-            });
-            wordIo.disconnect();
-          }
-        },
-        { threshold: 0.35 }
-      );
-      wordIo.observe(el);
-    });
-
     if (reduced) {
       return () => { sectionIo.disconnect(); elemIo.disconnect(); };
     }

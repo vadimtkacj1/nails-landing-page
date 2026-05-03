@@ -1,0 +1,57 @@
+/* ============================================
+   ADMIN PANEL — STANDALONE CSS
+   Mirrors aiterra-website globals.css exactly
+   ============================================ */
+
+@font-face {
+  font-family: 'Heebo';
+  src: url('/fonts/Heebo/Heebo-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arimo';
+  src: url('/fonts/Arimo/Arimo-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arimo';
+  src: url('/fonts/Arimo/Arimo-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ============================================
+   Scoped resets — only inside .admin-root
+   Undoes the nail-salon Tailwind config overrides
+   so all classes match aiterra values exactly
+   ============================================ */
+
+/* Border radius */
+.admin-root .rounded-sm  { border-radius: 0.125rem !important; }
+.admin-root .rounded     { border-radius: 0.25rem  !important; }
+.admin-root .rounded-md  { border-radius: 0.375rem !important; }
+.admin-root .rounded-lg  { border-radius: 0.5rem   !important; }
+.admin-root .rounded-xl  { border-radius: 0.75rem  !important; }
+.admin-root .rounded-2xl { border-radius: 1rem     !important; }
+.admin-root .rounded-3xl { border-radius: 1.5rem   !important; }
+
+/* Font sizes */
+.admin-root .text-xs   { font-size: 0.75rem  !important; line-height: 1rem    !important; }
+.admin-root .text-sm   { font-size: 0.875rem !important; line-height: 1.25rem !important; }
+.admin-root .text-base { font-size: 1rem     !important; line-height: 1.5rem  !important; }
+.admin-root .text-lg   { font-size: 1.125rem !important; line-height: 1.75rem !important; }
+.admin-root .text-xl   { font-size: 1.25rem  !important; line-height: 1.75rem !important; }
+.admin-root .text-2xl  { font-size: 1.5rem   !important; line-height: 2rem    !important; }
+
+/* Font family */
+.admin-root,
+.admin-root * {
+  font-family: 'Heebo', 'Arimo', system-ui, sans-serif;
+}

@@ -36,6 +36,9 @@
     "types/**/*.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "aiterra-website",
+    "aiterra-assistant",
+    "salon-bot-engine"
   ]
 }

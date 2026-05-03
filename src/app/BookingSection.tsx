@@ -1,17 +1,81 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
+import {
+  isBookingDateNotInPast,
+  isValidBookingDateString,
+  localISODate,
+} from '@/lib/booking-date';
+
+const FALLBACK_SLOTS = [
+  '10:00','10:30','11:00','11:30','12:00','12:30',
+  '13:00','13:30','14:00','14:30','15:00','15:30',
+  '16:00','16:30','17:00','17:30','18:00',
+]
 
 export default function BookingSection() {
-  const [appointmentDate, setAppointmentDate] = useState('2026-06-20')
+  const [appointmentDate, setAppointmentDate] = useState(() => localISODate())
   const [appointmentTime, setAppointmentTime] = useState('12:00')
   const [clientName, setClientName] = useState('')
   const [phone, setPhone] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [formError, setFormError] = useState<string | null>(null)
+  const [timeOptions, setTimeOptions] = useState<string[]>(FALLBACK_SLOTS)
+  const appointmentDateRef = useRef(appointmentDate)
+  appointmentDateRef.current = appointmentDate
+
+  const loadSlotsForDate = useCallback((dateStr: string) => {
+    let cancelled = false
+    fetch('/api/public/slots', { cache: 'no-store' })
+      .then((r) => r.json())
+      .then((data: { schedule: Record<number | string, { enabled: boolean; slots: string[] }> }) => {
+        if (cancelled) return
+        const dayOfWeek = new Date(`${dateStr}T00:00:00`).getDay()
+        const day = data.schedule[dayOfWeek] ?? data.schedule[String(dayOfWeek)]
+        if (day?.enabled && Array.isArray(day.slots) && day.slots.length > 0) {
+          setTimeOptions(day.slots)
+          setAppointmentTime((prev) => (day.slots.includes(prev) ? prev : day.slots[0]))
+        } else {
+          setTimeOptions([])
+          setAppointmentTime('')
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setTimeOptions(FALLBACK_SLOTS)
+          setAppointmentTime((prev) =>
+            FALLBACK_SLOTS.includes(prev) ? prev : FALLBACK_SLOTS[0]
+          )
+        }
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  useEffect(() => {
+    const cancel = loadSlotsForDate(appointmentDate)
+    return cancel
+  }, [appointmentDate, loadSlotsForDate])
+
+  useEffect(() => {
+    const onVis = () => {
+      if (document.visibilityState !== 'visible') return
+      const today = localISODate()
+      let next = appointmentDateRef.current
+      if (next < today) {
+        next = today
+        setAppointmentDate(next)
+      }
+      loadSlotsForDate(next)
+    }
+    document.addEventListener('visibilitychange', onVis)
+    return () => document.removeEventListener('visibilitychange', onVis)
+  }, [loadSlotsForDate])
 
   const formatDate = (value: string) => {
     if (!value) return ''
-
     const date = new Date(`${value}T00:00:00`)
     return new Intl.DateTimeFormat('he-IL', {
       weekday: 'short',
@@ -21,41 +85,50 @@ export default function BookingSection() {
     }).format(date)
   }
 
-  const timeOptions = useMemo(
-    () => [
-      '10:00',
-      '10:30',
-      '11:00',
-      '11:30',
-      '12:00',
-      '12:30',
-      '13:00',
-      '13:30',
-      '14:00',
-      '14:30',
-      '15:00',
-      '15:30',
-      '16:00',
-      '16:30',
-      '17:00',
-      '17:30',
-      '18:00',
-    ],
-    []
-  )
-
-  const handleBookNow = () => {
+  const handleBookNow = async () => {
     const trimmedName = clientName.trim()
     const trimmedPhone = phone.trim()
 
     if (!trimmedName || !trimmedPhone || !appointmentDate || !appointmentTime) {
-      window.alert('נא למלא תאריך, שעה, שם וטלפון.')
+      setFormError('נא למלא תאריך, שעה, שם וטלפון.')
       return
     }
 
-    window.alert(
-      `בקשת תור נשלחה:\n${formatDate(appointmentDate)} בשעה ${appointmentTime}\nשם: ${trimmedName}\nטלפון: ${trimmedPhone}`
-    )
+    if (!isValidBookingDateString(appointmentDate) || !isBookingDateNotInPast(appointmentDate)) {
+      setFormError('נא לבחור תאריך היום או בעתיד.')
+      return
+    }
+
+    setFormError(null)
+    setStatus('loading')
+    try {
+      const res = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({
+          name: trimmedName,
+          phone: trimmedPhone,
+          date: appointmentDate,
+          time: appointmentTime,
+        }),
+      })
+      const data = (await res.json().catch(() => ({}))) as { error?: string }
+      if (!res.ok) {
+        setFormError(typeof data.error === 'string' ? data.error : 'שגיאה, נסה שוב')
+        setStatus('error')
+        setTimeout(() => setStatus('idle'), 4000)
+        return
+      }
+      setStatus('success')
+      setClientName('')
+      setPhone('')
+      setTimeout(() => setStatus('idle'), 4000)
+    } catch {
+      setFormError('שגיאה, נסה שוב')
+      setStatus('error')
+      setTimeout(() => setStatus('idle'), 4000)
+    }
   }
 
   const FieldLabel = ({ label, iconSrc }: { label: string; iconSrc: string }) => (
@@ -80,8 +153,14 @@ export default function BookingSection() {
             <div>
               <input
                 type="date"
+                min={localISODate()}
                 value={appointmentDate}
-                onChange={(e) => setAppointmentDate(e.target.value)}
+                onChange={(e) => {
+                  const v = e.target.value
+                  const today = localISODate()
+                  setAppointmentDate(v < today ? today : v)
+                  setFormError(null)
+                }}
                 className="w-full bg-transparent text-[14px] sm:text-[15px] lg:text-[16px] font-semibold text-[#5c5c5c] font-[Heebo] outline-none"
                 aria-label="בחר תאריך לתור"
               />
@@ -94,15 +173,23 @@ export default function BookingSection() {
             <div className="relative">
               <select
                 value={appointmentTime}
-                onChange={(e) => setAppointmentTime(e.target.value)}
-                className="appearance-none w-full bg-transparent text-[14px] sm:text-[15px] lg:text-[16px] font-semibold text-[#5c5c5c] font-[Heebo] pr-6 outline-none"
+                onChange={(e) => {
+                  setAppointmentTime(e.target.value)
+                  setFormError(null)
+                }}
+                disabled={timeOptions.length === 0}
+                className="appearance-none w-full bg-transparent text-[14px] sm:text-[15px] lg:text-[16px] font-semibold text-[#5c5c5c] font-[Heebo] pr-6 outline-none disabled:opacity-50"
                 aria-label="בחר שעה לתור"
               >
-                {timeOptions.map((timeSlot) => (
-                  <option key={timeSlot} value={timeSlot}>
-                    {timeSlot}
-                  </option>
-                ))}
+                {timeOptions.length === 0 ? (
+                  <option value="">אין שעות פנויות ליום זה</option>
+                ) : (
+                  timeOptions.map((timeSlot) => (
+                    <option key={timeSlot} value={timeSlot}>
+                      {timeSlot}
+                    </option>
+                  ))
+                )}
               </select>
               <Image
                 src="/images/img_path_stroke.svg"
@@ -121,7 +208,10 @@ export default function BookingSection() {
               <input
                 type="text"
                 value={clientName}
-                onChange={(e) => setClientName(e.target.value)}
+                onChange={(e) => {
+                  setClientName(e.target.value)
+                  setFormError(null)
+                }}
                 placeholder="השם שלך"
                 className="w-full bg-transparent text-[14px] sm:text-[15px] lg:text-[16px] font-semibold text-[#5c5c5c] font-[Heebo] outline-none placeholder:text-[#9a9a9a]"
                 aria-label="הכנס שם"
@@ -136,7 +226,10 @@ export default function BookingSection() {
               <input
                 type="tel"
                 value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                  setPhone(e.target.value)
+                  setFormError(null)
+                }}
                 placeholder="+972"
                 className="w-full bg-transparent text-[14px] sm:text-[15px] lg:text-[16px] font-semibold text-[#5c5c5c] font-[Heebo] outline-none placeholder:text-[#9a9a9a]"
                 aria-label="הכנס מספר טלפון"
@@ -146,16 +239,35 @@ export default function BookingSection() {
           </div>
 
           {/* Book Now */}
-          <div className="col-span-2 lg:col-span-1 flex items-end justify-center lg:justify-end lg:pl-6 mt-2 lg:mt-0">
+          <div className="col-span-2 lg:col-span-1 flex flex-col items-center lg:items-end justify-center lg:justify-end lg:pl-6 mt-2 lg:mt-0 gap-2">
             <Button
-              text="הזמנת תור"
+              text={status === 'loading' ? 'שולח...' : 'הזמנת תור'}
               text_font_size="14"
               text_color="#ffffff"
-              fill_background_color="#d8b192"
+              fill_background_color={status === 'success' ? '#7daa7d' : '#d8b192'}
               border_border_radius="9999px"
-              className="w-full sm:w-auto px-8 py-3 sm:min-w-[220px] shadow-[0_8px_18px_rgba(176,132,100,0.28)] hover:brightness-95 transition-all"
+              className="w-full sm:w-auto px-8 py-3 sm:min-w-[220px] shadow-[0_8px_18px_rgba(176,132,100,0.28)] hover:brightness-95 transition-all disabled:opacity-60"
+              disabled={status === 'loading' || timeOptions.length === 0 || !appointmentTime}
               onClick={handleBookNow}
             />
+            {formError && (
+              <p
+                className="text-[13px] font-semibold text-red-500 font-[Heebo] text-center max-w-[280px] leading-snug"
+                role="alert"
+              >
+                {formError}
+              </p>
+            )}
+            {status === 'success' && (
+              <p className="text-[13px] font-semibold text-[#7daa7d] font-[Heebo] text-center">
+                ✓ בקשת התור נשלחה בהצלחה
+              </p>
+            )}
+            {status === 'error' && (
+              <p className="text-[13px] font-semibold text-red-400 font-[Heebo] text-center">
+                שגיאה, נסה שוב
+              </p>
+            )}
           </div>
 
         </div>
