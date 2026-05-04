@@ -44,10 +44,10 @@ export default function ContactSection() {
                 התקשרו אלינו כדי לתאם טיפול
               </p>
               <a
-                href="tel:+11236755656"
+                href="tel:+972526780739"
                 className="text-[20px] lg:text-[24px] font-semibold text-[#3b3b3b] font-[Heebo] hover:text-[#d8b192] transition-colors duration-300"
               >
-                (123) 675 5656
+                052-678-0739
               </a>
             </div>
 

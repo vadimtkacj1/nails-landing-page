@@ -16,6 +16,7 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 from salon_bot.notification_settings import load_notification_config
+from salon_bot.rtl_text import rtl
 from salon_bot.telegram_outbound import queue_telegram_messages
 from salon_bot.tenants_store import bookings_for_calendar_date, list_telegram_broadcast_entries
 
@@ -65,7 +66,7 @@ def format_tomorrow_reminder_message(
         lines = ["תזכורת לתורים מחר", f"תאריך: {tomorrow_iso}", ""]
     if not rows:
         lines.append("אין תורים מתוכננים למחר.")
-        return "\n".join(lines)
+        return rtl("\n".join(lines))
     lines.append("תורים מחר:")
     lines.append("")
     for b in rows:
@@ -73,7 +74,7 @@ def format_tomorrow_reminder_message(
         ph = str(b.get("phone") or "—").strip()
         tm = str(b.get("time") or "—")
         lines.append(f"• {nm} · {tm} · {ph}")
-    return "\n".join(lines)
+    return rtl("\n".join(lines))
 
 
 async def send_tomorrow_reminders(app: Any, tz_name: str) -> None:

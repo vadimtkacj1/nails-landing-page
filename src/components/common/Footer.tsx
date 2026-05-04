@@ -52,14 +52,17 @@ const Footer = () => {
               </ul>
             </Reveal>
 
-            <Reveal dir="up" delay={160} className="flex flex-col gap-4 sm:gap-5 w-full lg:w-[238px] text-right">
+            <Reveal dir="up" delay={160} className="flex flex-col gap-4 sm:gap-5 w-full lg:w-auto lg:shrink-0 lg:min-w-[12rem] text-right">
               <h3 className="text-base sm:text-lg font-semibold leading-[25px] capitalize text-white font-[Heebo]">
                 יצירת קשר
               </h3>
               <address dir="ltr" className="w-full text-sm sm:text-base font-normal leading-[25px] text-[#f3f3f3] font-[Heebo] not-italic text-right">
-                evercures@contact.com<br />
-                123.456.7891<br />
-                8998 Rose Avenue, Los Angeles, CA 54321
+                <a
+                  href="tel:+972526780739"
+                  className="inline-block whitespace-nowrap hover:text-white transition-colors duration-200"
+                >
+                  052-678-0739
+                </a>
               </address>
             </Reveal>
 

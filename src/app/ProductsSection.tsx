@@ -2,10 +2,10 @@ import Image from 'next/image';
 import { Reveal } from '@/components/ui/Reveal';
 
 const products = [
-  { id: 1, name: 'שכבת בסיס', description: 'צל עדין / 5oz', image: '/images/img_layer_6.png' },
-  { id: 2, name: 'לק ג׳ל', description: 'סרבט עדין / 5oz', image: '/images/img_layer_3.png' },
-  { id: 3, name: 'שכבת טופ', description: 'מארג׳ קייצי / 5oz', image: '/images/img_layer_4.png' },
-  { id: 4, name: 'לק מאט', description: 'פלט כחול / 5oz', image: '/images/img_layer_5.png' },
+  { id: 1, name: 'שכבת בסיס', description: 'צל עדין / 5', image: '/images/img_layer_6.png' },
+  { id: 2, name: 'לק ג׳ל', description: 'סרבט עדין / 5', image: '/images/img_layer_3.png' },
+  { id: 3, name: 'שכבת טופ', description: 'מארג׳ קייצי / 5', image: '/images/img_layer_4.png' },
+  { id: 4, name: 'לק מאט', description: 'פלט כחול / 5', image: '/images/img_layer_5.png' },
 ]
 
 export default function ProductsSection() {

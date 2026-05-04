@@ -9,15 +9,17 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Literal
 
+from salon_bot.rtl_text import rtl
+
 logger = logging.getLogger(__name__)
 _lock = threading.Lock()
 
-ACK_NEW_HE = (
+ACK_NEW_HE = rtl(
     "נרשמתם לרשימת התפוצה. נעדכן אתכם במבצעים, חדשות ותזכורות ליד לקוחות שקבעו תור."
 )
-ACK_AGAIN_HE = "כבר קיבלנו את ההרשמה שלכם — תודה!"
+ACK_AGAIN_HE = rtl("כבר קיבלנו את ההרשמה שלכם — תודה!")
 Channel = Literal["telegram", "whatsapp"]
-HINT_HE = (
+HINT_HE = rtl(
     "שלחו את קוד ההרשמה (בדיוק כפי שמופיע באדמין) כדי להצטרף לעדכונים מהסטודיו."
 )
 

@@ -19,6 +19,7 @@ from salon_bot.telegram_outbound import (
     detach_outbound_worker,
     queue_telegram_messages,
 )
+from salon_bot.rtl_text import rtl
 from salon_bot.tenants_store import (
     HINT_HE,
     bookings_for_test_broadcast,
@@ -28,8 +29,8 @@ from salon_bot.tenants_store import (
 
 logger = logging.getLogger(__name__)
 
-PING_HE = "בדיקה: הבוט פעיל."
-PING_ADMIN_HINT_HE = (
+PING_HE = rtl("בדיקה: הבוט פעיל.")
+PING_ADMIN_HINT_HE = rtl(
     "בדיקה: הבוט פעיל. לשליחת הודעת בדיקה לכל מנויי טלגרם, "
     "הגדירו SALON_BROADCAST_ADMIN_CHAT_IDS ב-.env (מזהה הצ'אט שלכם בטלגרם)."
 )
@@ -51,7 +52,7 @@ def _test_broadcast_message(tenant_id: str, tenant_label: str) -> str:
     if kind == "empty":
         lines.append("כרגע אין הזמנות להצגה.")
         lines.append("כשנרשמו תורים דרך האתר — יופיעו כאן שם, תאריך, שעה וטלפון.")
-        return "\n".join(lines)
+        return rtl("\n".join(lines))
     if kind == "upcoming":
         lines.append("תורים קרובים:")
     else:
@@ -63,7 +64,7 @@ def _test_broadcast_message(tenant_id: str, tenant_label: str) -> str:
         dt = str(b.get("date") or "—")
         tm = str(b.get("time") or "—")
         lines.append(f"• {nm} · {dt} · {tm} · {ph}")
-    return "\n".join(lines)
+    return rtl("\n".join(lines))
 
 
 def _is_test_trigger(text: str) -> bool:
@@ -101,7 +102,9 @@ async def cmd_test(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if not update.message:
         return
-    await update.message.reply_text("שלום! שלחו את קוד ההרשמה מהאדמין. בדיקה: /test")
+    await update.message.reply_text(
+        rtl("שלום! שלחו את קוד ההרשמה מהאדמין. בדיקה: /test")
+    )
 
 
 async def on_text(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
