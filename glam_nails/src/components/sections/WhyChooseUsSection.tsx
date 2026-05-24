@@ -20,6 +20,7 @@ const FeatureCard = ({ icon, title, description, iconAlt }: FeatureCardProps) =>
         alt={iconAlt}
         width={74}
         height={74}
+        unoptimized
         className="w-[60px] h-[60px] sm:w-[67px] sm:h-[67px] md:w-[74px] md:h-[74px]"
       />
 

@@ -67,7 +67,7 @@ export default function PortfolioSection() {
 
   useEffect(() => {
     let active = true;
-    fetch('/api/public/portfolio')
+    fetch(`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/api/public/portfolio`)
       .then((res) => (res.ok ? res.json() : []))
       .then((data: MediaItem[]) => {
         if (active) setMedia(Array.isArray(data) ? data : []);

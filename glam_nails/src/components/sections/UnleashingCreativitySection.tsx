@@ -208,8 +208,8 @@ export default function UnleashingCreativitySection() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[24px]">
-              <VideoCard title={about.videos[0]?.title ?? ''} subtitle={about.videos[0]?.subtitle ?? ''} src="/images/videos/video_01.mp4" />
-              <VideoCard title={about.videos[1]?.title ?? ''} subtitle={about.videos[1]?.subtitle ?? ''} src="/images/videos/video_40.mp4" />
+              <VideoCard title={about.videos[0]?.title ?? ''} subtitle={about.videos[0]?.subtitle ?? ''} src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/videos/video_01.mp4`} />
+              <VideoCard title={about.videos[1]?.title ?? ''} subtitle={about.videos[1]?.subtitle ?? ''} src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/videos/video_40.mp4`} />
             </div>
           </Reveal>
 

@@ -23,7 +23,7 @@ export default function HeroSection() {
         aria-hidden
         className="absolute -inset-y-[12%] inset-x-0 will-change-transform"
         style={{
-          backgroundImage: "url('/images/img_.png')",
+          backgroundImage: `url('${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/img_.png')`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
