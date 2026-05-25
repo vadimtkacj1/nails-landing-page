@@ -2,7 +2,7 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 import Reveal from '@/components/ui/Reveal';
-import { useSiteContent } from '@/components/i18n/LocaleProvider';
+import { useLocale } from '@/components/i18n/LocaleProvider';
 
 interface TestimonialCardProps {
   image: string
@@ -45,7 +45,9 @@ export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const touchStartX = useRef(0)
   const touchEndX = useRef(0)
-  const { testimonials: testimonialsContent } = useSiteContent()
+  const { content, dir } = useLocale()
+  const testimonialsContent = content.testimonials
+  const isRtl = dir === 'rtl'
 
   const testimonials = testimonialsContent.items.map((t, i) => ({
     image: TESTIMONIAL_IMAGES[i] ?? TESTIMONIAL_IMAGES[0],
@@ -67,8 +69,8 @@ export default function TestimonialsSection() {
   const handleTouchEnd = () => {
     const diff = touchStartX.current - touchEndX.current
     if (Math.abs(diff) > 50) {
-      if (diff > 0) next()
-      else prev()
+      if (diff > 0) isRtl ? prev() : next()
+      else isRtl ? next() : prev()
     }
   }
 
@@ -85,7 +87,9 @@ export default function TestimonialsSection() {
           <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-6">
             <Reveal delay={120} className="max-w-[1142px] mx-auto">
               {/* Slider */}
+              {/* dir="ltr" isolates slider from RTL so translateX always works physically */}
               <div
+                dir="ltr"
                 className="overflow-hidden"
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
@@ -96,7 +100,7 @@ export default function TestimonialsSection() {
                   style={{ transform: `translateX(-${currentIndex * 100}%)` }}
                 >
                   {testimonials.map((testimonial, index) => (
-                    <div key={index} className="w-full flex-shrink-0">
+                    <div key={index} dir={dir} className="w-full flex-shrink-0">
                       <TestimonialCard {...testimonial} />
                     </div>
                   ))}
@@ -106,9 +110,9 @@ export default function TestimonialsSection() {
               {/* Navigation */}
               <div className="flex justify-between items-center mt-[20px] sm:mt-[24px]">
                 <button
-                  onClick={prev}
+                  onClick={isRtl ? next : prev}
                   className="p-[10px] sm:p-[12px] bg-secondary-background hover:bg-primary-background hover:text-white transition-colors rounded-full shadow"
-                  aria-label="Предыдущий отзыв"
+                  aria-label="previous"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -123,15 +127,15 @@ export default function TestimonialsSection() {
                       className={`w-[10px] h-[10px] rounded-full transition-colors ${
                         i === currentIndex ? 'bg-primary-background' : 'bg-gray-300'
                       }`}
-                      aria-label={`Отзыв ${i + 1}`}
+                      aria-label={`${i + 1}`}
                     />
                   ))}
                 </div>
 
                 <button
-                  onClick={next}
+                  onClick={isRtl ? prev : next}
                   className="p-[10px] sm:p-[12px] bg-secondary-background hover:bg-primary-background hover:text-white transition-colors rounded-full shadow"
-                  aria-label="Следующий отзыв"
+                  aria-label="next"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

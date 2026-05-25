@@ -68,7 +68,7 @@ const VideoCard = ({ title, subtitle, src }: { title: string; subtitle: string; 
 const SectionEyebrow = ({ label }: { label: string }) => (
   <div className="flex items-center gap-[10px]">
     <span className="text-[11px] sm:text-[12px] tracking-[0.25em] uppercase text-[#c2a05a] font-semibold" style={{ fontFamily: 'Nunito Sans' }}>
-      // {label}
+      {label}
     </span>
   </div>
 );
@@ -152,13 +152,12 @@ export default function UnleashingCreativitySection() {
 
             {/* Текстова історія */}
             <Reveal direction="right" delay={120} className="flex flex-col gap-[32px] w-full lg:w-[58%] lg:pt-4">
-              {/* ТУТ ЛІНІЮ ПРИБРАНО, ЗАЛИШИВСЯ ПРОСТО ЧИСТИЙ КУРСИВНИЙ БЛОК */}
-              <p
-                className="text-[20px] sm:text-[20px] md:text-[22px] font-normal leading-[1.5] text-text-primary italic tracking-wide"
+              <blockquote
+                className="text-[26px] sm:text-[30px] md:text-[36px] font-normal leading-[1.45] text-text-primary italic tracking-wide"
                 style={{ fontFamily: 'Playfair Display' }}
               >
                 {about.quote}
-              </p>
+              </blockquote>
 
               <div className="flex flex-col gap-[20px]">
                 <p className="text-[16px] sm:text-[16px] md:text-[17px] font-normal leading-[1.8] text-text-secondary/90" style={{ fontFamily: 'Nunito Sans' }}>
