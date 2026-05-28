@@ -1,6 +1,5 @@
 'use client';
 import { useState, useRef } from 'react';
-import Image from 'next/image';
 import Reveal from '@/components/ui/Reveal';
 import { useLocale } from '@/components/i18n/LocaleProvider';
 
@@ -14,12 +13,10 @@ interface TestimonialCardProps {
 
 const TestimonialCard = ({ image, name, location, testimonial, imageAlt }: TestimonialCardProps) => (
   <div className="flex flex-col sm:flex-row gap-[16px] sm:gap-[20px] md:gap-[24px] justify-start items-start bg-secondary-background p-[20px] sm:p-[30px] md:p-[40px] w-full">
-    <Image
+    <img
       src={image}
       alt={imageAlt}
-      width={120}
-      height={120}
-      className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] rounded-full mx-auto sm:mx-0 flex-shrink-0"
+      className="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] rounded-full mx-auto sm:mx-0 flex-shrink-0 object-cover"
     />
     <div className="flex flex-col gap-[20px] sm:gap-[30px] md:gap-[40px] justify-start items-center w-full">
       <p className="text-[17px] sm:text-[17px] md:text-lg font-normal leading-loose text-start text-text-secondary" style={{ fontFamily: 'Nunito Sans' }}>
@@ -39,7 +36,8 @@ const TestimonialCard = ({ image, name, location, testimonial, imageAlt }: Testi
   </div>
 )
 
-const TESTIMONIAL_IMAGES = ['/images/img_image_120x120.png', '/images/img_image_3.png', '/images/img_image_4.png']
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const TESTIMONIAL_IMAGES = [`${BASE}/images/img_image_120x120.png`, `${BASE}/images/img_image_3.png`, `${BASE}/images/img_image_4.png`]
 
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
