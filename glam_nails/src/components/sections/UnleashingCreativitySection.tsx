@@ -74,7 +74,7 @@ const SectionEyebrow = ({ label }: { label: string }) => (
 
 const ValueChip = ({ children }: { children: React.ReactNode }) => (
   <span
-    className="inline-flex items-center justify-center px-[16px] py-[10px] rounded-md border border-text-primary/10 bg-white/60 backdrop-blur-sm text-[13px] sm:text-[13px] tracking-[0.02em] text-text-primary/90 font-medium transition-colors duration-300 hover:border-[#c2a05a]/40"
+    className="inline-flex items-center justify-center px-[16px] py-[10px] rounded-md border border-text-primary/10 bg-white/60 backdrop-blur-sm text-[15px] sm:text-[13px] tracking-[0.02em] text-text-primary/90 font-medium transition-colors duration-300 hover:border-[#c2a05a]/40"
     style={{ fontFamily: 'Nunito Sans' }}
   >
     {children}
@@ -93,10 +93,9 @@ export default function UnleashingCreativitySection() {
         style={{ background: '#c2a05a' }}
       />
 
-      <div className="relative w-full max-w-[1440px] mx-auto px-4 sm:px-8 py-[80px] sm:py-[100px] md:py-[140px]">
-        <div className="flex flex-col gap-[60px] sm:gap-[80px] md:gap-[110px] max-w-[1140px] mx-auto">
-
-          {/* Заголовок */}
+      {/* Заголовок */}
+      <div className="relative w-full max-w-[1440px] mx-auto px-4 sm:px-8 pt-[80px] sm:pt-[100px] md:pt-[140px]">
+        <div className="max-w-[1140px] mx-auto">
           <Reveal className="flex flex-col items-center gap-[16px] text-center max-w-[760px] mx-auto">
             <SectionEyebrow label={about.eyebrow} />
             <h2
@@ -115,64 +114,72 @@ export default function UnleashingCreativitySection() {
               {about.intro}
             </p>
           </Reveal>
+        </div>
+      </div>
 
-          {/* Блок з фото та текстом */}
-          <div className="flex flex-col lg:flex-row gap-[48px] md:gap-[64px] lg:gap-[80px] items-center lg:items-start">
-            
-            {/* Фотографія */}
-            <Reveal direction="left" className="relative w-full sm:w-[80%] md:w-[65%] lg:w-[42%] flex-shrink-0">
-              <div className="relative overflow-hidden rounded-[4px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.08)] bg-stone-200">
-                <div
-                  className="will-change-transform"
-                  style={{ transform: `translate3d(0, ${portraitOffset}px, 0) scale(1.05)` }}
-                >
-                  <img
-                    src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/clinic-bg.png`}
-                    alt={about.name}
-                    className="w-full h-auto block object-contain"
-                  />
-                </div>
-              </div>
-              
-              {/* Картка студії */}
-              <div className="absolute -bottom-4 -right-2 sm:-bottom-6 sm:-right-4 bg-white border border-stone-100 px-[20px] py-[16px] sm:px-[24px] sm:py-[20px] min-w-[200px] rounded-[2px] shadow-sm">
-                <div className="flex flex-col gap-[2px]">
-                  <span className="text-[9px] tracking-[0.2em] uppercase text-text-secondary/70" style={{ fontFamily: 'Nunito Sans' }}>
-                    {about.studioLabel}
-                  </span>
-                  <span className="text-[15px] sm:text-[16px] text-text-primary font-medium" style={{ fontFamily: 'Playfair Display', fontStyle: 'italic' }}>
-                    {about.studioName}
-                  </span>
-                </div>
-              </div>
-            </Reveal>
+      {/* Блок з фото та текстом — картинка виходить на повну ширину на мобільних */}
+      <div className="relative w-full max-w-[1440px] mx-auto mt-[60px] sm:mt-[80px] md:mt-[110px]">
+        <div className="flex flex-col lg:flex-row lg:gap-[80px] lg:items-start lg:px-8">
 
-            {/* Текстова історія */}
-            <Reveal direction="right" delay={120} className="flex flex-col gap-[32px] w-full lg:w-[58%] lg:pt-4">
-              <blockquote
-                className="text-[26px] sm:text-[30px] md:text-[36px] font-normal leading-[1.45] text-text-primary italic tracking-wide"
-                style={{ fontFamily: 'Playfair Display' }}
+          {/* Фотографія: повна ширина на мобільних */}
+          <Reveal direction="left" className="relative w-full lg:w-[42%] flex-shrink-0">
+            <div className="relative overflow-hidden">
+              <div
+                className="will-change-transform"
+                style={{ transform: `translate3d(0, ${portraitOffset}px, 0) scale(1.05)` }}
               >
-                {about.quote}
-              </blockquote>
-
-              <div className="flex flex-col gap-[20px]">
-                <p className="text-[16px] sm:text-[16px] md:text-[17px] font-normal leading-[1.8] text-text-secondary/90" style={{ fontFamily: 'Nunito Sans' }}>
-                  {about.story1}
-                </p>
-                <p className="text-[16px] sm:text-[16px] md:text-[17px] font-normal leading-[1.8] text-text-secondary/90" style={{ fontFamily: 'Nunito Sans' }}>
-                  {about.story2}
-                </p>
+                <img
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/clinic-bg.png`}
+                  alt={about.name}
+                  className="w-full h-auto block object-contain"
+                />
               </div>
+            </div>
 
-              {/* Теги / Фішки */}
-              <div className="flex flex-wrap gap-[8px] pt-2">
-                {about.chips.map((chip) => (
-                  <ValueChip key={chip}>{chip}</ValueChip>
-                ))}
+            {/* Картка студії */}
+            <div className="absolute bottom-4 right-4 bg-white border border-stone-100 px-[20px] py-[16px] sm:px-[24px] sm:py-[20px] min-w-[200px] rounded-[2px] shadow-sm">
+              <div className="flex flex-col gap-[2px]">
+                <span className="text-[9px] tracking-[0.2em] uppercase text-text-secondary/70" style={{ fontFamily: 'Nunito Sans' }}>
+                  {about.studioLabel}
+                </span>
+                <span className="text-[15px] sm:text-[16px] text-text-primary font-medium" style={{ fontFamily: 'Playfair Display', fontStyle: 'italic' }}>
+                  {about.studioName}
+                </span>
               </div>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
+
+          {/* Текстова історія */}
+          <Reveal direction="right" delay={120} className="flex flex-col gap-[32px] w-full lg:w-[58%] lg:pt-4 px-4 sm:px-8 lg:px-0 mt-8 lg:mt-0">
+            <blockquote
+              className="text-[26px] sm:text-[30px] md:text-[36px] font-normal leading-[1.45] text-text-primary italic tracking-wide"
+              style={{ fontFamily: 'Playfair Display' }}
+            >
+              {about.quote}
+            </blockquote>
+
+            <div className="flex flex-col gap-[20px]">
+              <p className="text-[18px] sm:text-[17px] md:text-[17px] font-normal leading-[1.8] text-text-secondary/90" style={{ fontFamily: 'Nunito Sans' }}>
+                {about.story1}
+              </p>
+              <p className="text-[18px] sm:text-[17px] md:text-[17px] font-normal leading-[1.8] text-text-secondary/90" style={{ fontFamily: 'Nunito Sans' }}>
+                {about.story2}
+              </p>
+            </div>
+
+            {/* Теги / Фішки */}
+            <div className="flex flex-wrap gap-[8px] pt-2">
+              {about.chips.map((chip) => (
+                <ValueChip key={chip}>{chip}</ValueChip>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </div>
+
+      {/* Велика цитата + Відео */}
+      <div className="relative w-full max-w-[1440px] mx-auto px-4 sm:px-8 pb-[80px] sm:pb-[100px] md:pb-[140px]">
+        <div className="flex flex-col gap-[60px] sm:gap-[80px] md:gap-[110px] max-w-[1140px] mx-auto pt-[60px] sm:pt-[80px] md:pt-[110px]">
 
           {/* Велика цитата */}
           <Reveal className="relative max-w-[800px] mx-auto text-center px-4 sm:px-6 pt-8">

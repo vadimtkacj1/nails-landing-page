@@ -89,7 +89,7 @@ export default function WhyChooseUsSection() {
                 <button
                   type="button"
                   onClick={openBooking}
-                  className="flex flex-row justify-center items-center bg-primary-background px-[14px] py-[14px] hover:opacity-90 transition-opacity"
+                  className="flex flex-row justify-center items-center bg-primary-background px-[14px] py-[14px] rounded-xl hover:opacity-90 transition-opacity"
                 >
                   <span className="text-[15px] sm:text-[15px] md:text-base font-normal leading-relaxed text-start text-text-white" style={{ fontFamily: 'Nunito Sans' }}>
                     {why.bookingCta}

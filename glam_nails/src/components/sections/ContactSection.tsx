@@ -209,7 +209,7 @@ export default function ContactSection() {
                   href={WHATSAPP_HREF}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-[10px] bg-primary-background text-text-white px-[26px] py-[14px] hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300"
+                  className="inline-flex items-center justify-center gap-[10px] bg-primary-background text-text-white px-[26px] py-[14px] rounded-xl hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300"
                   style={{ fontFamily: 'Nunito Sans' }}
                 >
                   <WhatsAppIcon className="w-[18px] h-[18px]" />
@@ -219,7 +219,7 @@ export default function ContactSection() {
                 </a>
                 <a
                   href={PHONE_HREF}
-                  className="inline-flex items-center justify-center gap-[10px] border border-primary-background text-text-primary px-[26px] py-[14px] hover:bg-primary-background hover:text-text-white hover:-translate-y-0.5 transition-all duration-300"
+                  className="inline-flex items-center justify-center gap-[10px] border border-primary-background text-text-primary px-[26px] py-[14px] rounded-xl hover:bg-primary-background hover:text-text-white hover:-translate-y-0.5 transition-all duration-300"
                   style={{ fontFamily: 'Nunito Sans' }}
                 >
                   <PhoneIcon className="w-[18px] h-[18px]" />

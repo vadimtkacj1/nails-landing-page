@@ -134,7 +134,7 @@ const PricingBlock = ({
 
             <Button
               text={cta}
-              className="w-full sm:w-auto px-[28px] py-[14px] mt-[16px] sm:mt-[20px] md:mt-[24px] hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300"
+              className="w-full sm:w-auto px-[28px] py-[14px] rounded-xl mt-[16px] sm:mt-[20px] md:mt-[24px] hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300"
               text_font_size="text-base"
               text_font_family="Nunito Sans"
               text_font_weight="font-normal"

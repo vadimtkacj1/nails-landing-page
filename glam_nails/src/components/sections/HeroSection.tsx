@@ -26,7 +26,7 @@ export default function HeroSection() {
         style={{
           backgroundImage: `url('${imagePath}')`,
           // Изменено на contain, чтобы картинка уменьшилась и не растягивалась избыточно
-          backgroundSize: 'auto 68%',
+          backgroundSize: 'auto 80%',
           backgroundPosition: 'right center',
           backgroundRepeat: 'no-repeat',
           transform: `translate3d(0, ${offset}px, 0)${isRtl ? ' scaleX(-1)' : ''}`,
@@ -58,7 +58,7 @@ export default function HeroSection() {
               <div className="flex flex-col sm:flex-row gap-[12px] w-full max-w-[320px] sm:max-w-none justify-center md:justify-start">
                 <Button
                   text={hero.cta}
-                  className="w-full sm:w-auto px-[28px] py-[14px] uppercase tracking-wider text-sm"
+                  className="w-full sm:w-auto px-[28px] py-[14px] rounded-xl uppercase tracking-wider text-sm"
                   text_font_size="text-sm"
                   text_font_family="Nunito Sans"
                   text_font_weight="font-medium"
@@ -74,7 +74,7 @@ export default function HeroSection() {
                 />
                 <button
                   onClick={openBooking}
-                  className="w-full sm:w-auto px-[28px] py-[14px] uppercase tracking-wider text-sm font-medium bg-transparent text-text-primary hover:bg-text-primary hover:text-white transition-all duration-200 focus:outline-none"
+                  className="w-full sm:w-auto px-[28px] py-[14px] rounded-xl uppercase tracking-wider text-sm font-medium bg-transparent text-text-primary hover:bg-text-primary hover:text-white transition-all duration-200 focus:outline-none"
                   style={{ fontFamily: 'Nunito Sans', border: '2px solid #1d1d1e' }}
                 >
                   {hero.cta2}
@@ -138,11 +138,11 @@ export default function HeroSection() {
           </div>
 
           {/* Мобільне зображення (тепер зверху на мобільних завдяки flex-col-reverse) */}
-          <div className="block md:hidden w-full max-h-[430px] overflow-hidden rounded-b-[32px] shadow-sm">
-            <img
-              src={imagePath}
-              alt="Nails and Beauty"
-              className={`w-full h-full object-cover object-top ${isRtl ? 'scaleX(-1)' : ''}`}
+          <div className="block md:hidden w-full overflow-hidden rounded-b-[32px] shadow-sm">
+            <img 
+              src={imagePath} 
+              alt="Nails and Beauty" 
+              className={`w-full h-auto object-cover ${isRtl ? 'scaleX(-1)' : ''}`}
             />
           </div>
 
