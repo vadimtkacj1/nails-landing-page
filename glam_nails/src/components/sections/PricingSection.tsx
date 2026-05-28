@@ -48,7 +48,7 @@ const PricingRow = ({ title, price, currency }: PricingItem & { currency: string
 const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 const CATEGORY_META: { id: string; image: string; imagePosition: 'left' | 'right' }[] = [
-  { id: 'permanent', image: `${BASE}/images/img_image_618x460.png`, imagePosition: 'left' },
+  { id: 'permanent', image: `${BASE}/images/photos/photo_48.jpeg`, imagePosition: 'left' },
   { id: 'manicure', image: `${BASE}/images/img_image_2.png`, imagePosition: 'right' },
   { id: 'pedicure', image: `${BASE}/images/img_image_400x558.png`, imagePosition: 'left' },
 ];
