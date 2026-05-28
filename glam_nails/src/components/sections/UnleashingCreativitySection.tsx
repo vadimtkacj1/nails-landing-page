@@ -1,5 +1,4 @@
 'use client';
-import Image from 'next/image';
 import { useRef, useState } from 'react';
 import Reveal from '@/components/ui/Reveal';
 import { useParallax } from '@/hooks/useParallax';
@@ -127,12 +126,10 @@ export default function UnleashingCreativitySection() {
                   className="will-change-transform"
                   style={{ transform: `translate3d(0, ${portraitOffset}px, 0) scale(1.05)` }}
                 >
-                  <Image
-                    src="/images/img_image_28.png"
+                  <img
+                    src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/clinic-bg.png`}
                     alt={about.name}
-                    width={520}
-                    height={680}
-                    className="w-full h-auto block object-cover aspect-[3/4]"
+                    className="w-full h-auto block object-contain"
                   />
                 </div>
               </div>
@@ -207,7 +204,7 @@ export default function UnleashingCreativitySection() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-[20px] md:gap-[24px]">
-              <VideoCard title={about.videos[0]?.title ?? ''} subtitle={about.videos[0]?.subtitle ?? ''} src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/videos/video_01.mp4`} />
+              <VideoCard title={about.videos[0]?.title ?? ''} subtitle={about.videos[0]?.subtitle ?? ''} src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/videos/video_permanent.mp4`} />
               <VideoCard title={about.videos[1]?.title ?? ''} subtitle={about.videos[1]?.subtitle ?? ''} src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/videos/video_40.mp4`} />
             </div>
           </Reveal>

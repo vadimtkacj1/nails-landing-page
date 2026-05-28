@@ -1,10 +1,11 @@
 'use client';
-import Image from 'next/image';
+
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
 
 const Logo = () => (
   <div className="flex flex-row gap-[8px] justify-center items-center">
-    <Image
-      src="/logo.png"
+    <img
+      src={`${BASE}/logo.png`}
       alt="Glam Nails logo"
       width={52}
       height={50}
